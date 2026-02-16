@@ -1,0 +1,31 @@
+{
+  "servers": {
+    "MAIN": { "ip": "100.102.25.109", "user": "root" },
+    "STATIC-01": { "ip": "100.106.226.53", "user": "root" },
+    "WFPC": { "ip": "100.110.228.58", "user": "root" }
+  },
+  "commands": {
+    "SSH": {
+      "template": "ssh {user}@{ip}"
+    },
+    "Tunnel": {
+      "template": "ssh -L {local}:localhost:{remote} {user}@{ip}",
+      "args": [
+        { "id": "local", "prompt": "Local Port", "default": "8080" },
+        { "id": "remote", "prompt": "Remote Port", "default": "80" }
+      ]
+    },
+    "Firewall": {
+      "template": "firewall.sh -i {ip} -u {user}"
+    },
+    "Cleanup": {
+      "template": "cleanup.sh -i {ip}"
+    },
+    "Diagnostics": {
+      "template": "diagnostics.sh -i {ip}"
+    },
+    "System Upgrade": {
+      "template": "upgrade.sh -i {ip}"
+    }
+  }
+}
