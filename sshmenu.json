@@ -1,8 +1,8 @@
 {
   "servers": {
-    "MAIN": { "ip": "100.102.25.109", "user": "root" },
-    "STATIC-01": { "ip": "100.106.226.53", "user": "root" },
-    "WFPC": { "ip": "100.110.228.58", "user": "root" }
+    "ezer-main": { "ip": "100.102.25.109", "user": "root" },
+    "ezer-static-001": { "ip": "100.106.226.53", "user": "root" },
+    "ezer-jho": { "ip": "100.110.228.58", "user": "root" }
   },
   "commands": {
     "SSH": {
@@ -15,17 +15,41 @@
         { "id": "remote", "prompt": "Remote Port", "default": "80" }
       ]
     },
-    "Firewall": {
-      "template": "firewall.sh -i {ip} -u {user}"
+    "System Maintenance": {
+      "template": "run_remote.sh -i {ip} -f system_maintenance.sh"
     },
-    "Cleanup": {
-      "template": "cleanup.sh -i {ip}"
+    "Upload File": {
+      "template": "scp {file} {user}@{ip}:{dest}",
+      "args": [
+        {
+          "id": "file",
+          "prompt": "Local File Name/Path",
+          "default": "example.txt"
+        },
+        {
+          "id": "dest",
+          "prompt": "Remote Destination Path",
+          "default": "~/"
+        }
+      ]
     },
-    "Diagnostics": {
-      "template": "diagnostics.sh -i {ip}"
+    "Download File": {
+      "template": "scp {user}@{ip}:{remote_path} {local_path}",
+      "args": [
+        {
+          "id": "remote_path",
+          "prompt": "Remote File Path",
+          "default": "/home/{user}/file.txt"
+        },
+        {
+          "id": "local_path",
+          "prompt": "Local Destination (path or .)",
+          "default": "."
+        }
+      ]
     },
-    "System Upgrade": {
-      "template": "upgrade.sh -i {ip}"
+    "Restart Server": {
+      "template": "run_remote.sh -i {ip} -f reboot.sh"
     }
   }
 }
