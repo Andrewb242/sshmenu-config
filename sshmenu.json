@@ -18,6 +18,9 @@
     "System Maintenance": {
       "template": "run_remote.sh -i {ip} -f system_maintenance.sh"
     },
+    "Dist Upgrade": {
+      "template": "run_remote.sh -i {ip} -f dist_upgrade.sh"
+    },
     "Upload File": {
       "template": "scp {file} {user}@{ip}:{dest}",
       "args": [
